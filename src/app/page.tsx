@@ -3,11 +3,19 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import InboxOverlay from "./components/InboxOverlay";
+import { listButton } from "./utils/constant";
+import ReactHtmlParser from "react-html-parser";
 
 export default function Home() {
   const [popup, setPopup] = useState(true);
   const [popOver, setPopOver] = useState(false);
-  const [popOverBtnActive, setPopOverBtnActive] = useState(null);
+  const [popOverInbox, setPopOverInbox] = useState(false);
+  const [popOverTask, setPopOverTask] = useState(false);
+  const [popOverBtnActive, setPopOverBtnActive] = useState(-1);
+  const [listPopupButton, setlistPopupButton] = useState([]);
+
+  // setlistPopupButton(listButton());
+
   // const toggleIsActive = (i) => {
   //   setPopOverBtnActive(i);
   // };
@@ -45,24 +53,36 @@ export default function Home() {
                   : "")
               }
             >
-              <div
-                className={
-                  "flex items-center justify-center flex-col " +
-                  (!popOver ? "mb-5" : "my-5")
-                }
-              >
-                {!popOver && <p className="mb-1 ">Task</p>}
-                <button className={" bg-white rounded-full p-5 aspect-square "}>
-                  <Image
-                    src={"/image/task.svg"}
-                    className="aspect-square"
-                    width={25}
-                    height={25}
-                    alt={"task"}
-                  />
-                </button>
-              </div>
-              <div
+              {listButton.map((x, i) => (
+                <div
+                  key={i}
+                  className={
+                    "flex items-center justify-center flex-col " +
+                    (!popOver ? "mb-5" : "my-5")
+                  }
+                >
+                  {!popOver && <p className="mb-1 ">{x?.teks}</p>}
+                  <button
+                    onClick={() => {
+                      setPopOver(!popOver);
+                      setPopOverBtnActive(i);
+                    }}
+                    className={` rounded-full p-5 aspect-square `}
+                    style={{
+                      backgroundColor:
+                        popOverBtnActive == i
+                          ? x?.background?.active
+                          : x?.background?.nonactive,
+                    }}
+                  >
+                    {popOverBtnActive == i
+                      ? ReactHtmlParser(x.icon?.active)
+                      : ReactHtmlParser(x?.icon?.nonactive)}
+                  </button>
+                </div>
+              ))}
+
+              {/* <div
                 className={
                   "flex items-center justify-center flex-col " +
                   (!popOver ? "mb-5" : "my-5")
@@ -83,7 +103,7 @@ export default function Home() {
                     alt={"inbox"}
                   />
                 </button>
-              </div>
+              </div> */}
             </div>
             <button
               onClick={() => {
