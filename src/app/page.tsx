@@ -2,9 +2,15 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import InboxOverlay from "./components/InboxOverlay";
 
 export default function Home() {
   const [popup, setPopup] = useState(true);
+  const [popOver, setPopOver] = useState(false);
+  const [popOverBtnActive, setPopOverBtnActive] = useState(null);
+  // const toggleIsActive = (i) => {
+  //   setPopOverBtnActive(i);
+  // };
   return (
     <div className="flex w-full flex-row bg-[#333333]">
       <aside className="border-r border-[#F2F2F2] flex col-span-6 h-screen w-1/6 max-h-screen "></aside>
@@ -25,52 +31,78 @@ export default function Home() {
             id=""
           />
         </div>
-        <div className="flex fixed bottom-0 right-0 flex-wrap items-center">
-          <div
-            className={
-              "flex flex-row gap-5 transition-transform " +
-              (popup && "translate-x-72")
-            }
-          >
-            <div className="flex mb-5 items-center justify-center flex-col">
-              <p className="mb-1 ">Task</p>
-              <button className="bg-white rounded-full p-5 aspect-square ">
-                <Image
-                  src={"/image/task.svg"}
-                  className="aspect-square"
-                  width={25}
-                  height={25}
-                  alt={"task"}
-                />
-              </button>
+
+        <div className="flex flex-col flex-nowrap w-full justify-end content-end fixed bottom-0 right-0">
+          <div>{popOver && InboxOverlay()}</div>
+          <div className="flex flex-row justify-end content-end flex-wrap items-center">
+            <div
+              className={
+                "flex flex-row gap-5 transition-transform " +
+                (popup
+                  ? "translate-x-72"
+                  : popOver
+                  ? " translate-x-24 relative z-20"
+                  : "")
+              }
+            >
+              <div
+                className={
+                  "flex items-center justify-center flex-col " +
+                  (!popOver ? "mb-5" : "my-5")
+                }
+              >
+                {!popOver && <p className="mb-1 ">Task</p>}
+                <button className={" bg-white rounded-full p-5 aspect-square "}>
+                  <Image
+                    src={"/image/task.svg"}
+                    className="aspect-square"
+                    width={25}
+                    height={25}
+                    alt={"task"}
+                  />
+                </button>
+              </div>
+              <div
+                className={
+                  "flex items-center justify-center flex-col " +
+                  (!popOver ? "mb-5" : "my-5")
+                }
+              >
+                {!popOver && <p className="mb-1 ">inbox</p>}
+                <button
+                  onClick={(i) => {
+                    setPopOver(!popOver);
+                  }}
+                  className="bg-white rounded-full p-5 aspect-square "
+                >
+                  <Image
+                    src={"/image/inbox.svg"}
+                    className="aspect-square"
+                    width={25}
+                    height={25}
+                    alt={"inbox"}
+                  />
+                </button>
+              </div>
             </div>
-            <div className="flex  mb-5 items-center justify-center flex-col">
-              <p className="mb-1 ">inbox</p>
-              <button className="bg-white rounded-full p-5 aspect-square ">
-                <Image
-                  src={"/image/inbox.svg"}
-                  className="aspect-square"
-                  width={25}
-                  height={25}
-                  alt={"inbox"}
-                />
-              </button>
-            </div>
+            <button
+              onClick={() => {
+                setPopup(!popup);
+              }}
+              className={
+                (popOver ? "bg-[#4F4F4F]" : "bg-[#2F80ED]") +
+                " m-5 me-10 rounded-full p-5 aspect-square "
+              }
+            >
+              <Image
+                src={"/image/petir.svg"}
+                className="aspect-square"
+                width={30}
+                height={30}
+                alt={"petir"}
+              />
+            </button>
           </div>
-          <button
-            onClick={() => {
-              setPopup(!popup);
-            }}
-            className="bg-[#2F80ED] m-5 rounded-full relative z-10 p-5 aspect-square"
-          >
-            <Image
-              src={"/image/petir.svg"}
-              className="aspect-square"
-              width={30}
-              height={30}
-              alt={"petir"}
-            />
-          </button>
         </div>
       </main>
     </div>
