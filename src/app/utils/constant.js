@@ -13,6 +13,7 @@ var listButton = [
       active: "#F8B76B",
       nonactive: "#FFFFFF",
     },
+    href: 2,
   },
   {
     teks: "Inbox",
@@ -28,6 +29,7 @@ var listButton = [
       active: "#8785FF",
       nonactive: "#FFFFFF",
     },
+    href: 1,
   },
 ];
 

@@ -5,10 +5,12 @@ import Link from "next/link";
 import InboxOverlay from "./components/InboxOverlay";
 import { listButton } from "./utils/constant";
 import ReactHtmlParser from "react-html-parser";
+import taskOverlay from "./components/taskOverlay";
 
 export default function Home() {
   const [popup, setPopup] = useState(true);
   const [popOver, setPopOver] = useState(false);
+  const [popOverType, setPopOverType] = useState(0);
   const [popOverInbox, setPopOverInbox] = useState(false);
   const [popOverTask, setPopOverTask] = useState(false);
   const [popOverBtnActive, setPopOverBtnActive] = useState(-1);
@@ -41,7 +43,17 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col flex-nowrap w-full justify-end content-end fixed bottom-0 right-0">
-          <div>{popOver && InboxOverlay()}</div>
+          <div>
+            {popOver && (
+              <div>
+                {popOverType == 1
+                  ? InboxOverlay()
+                  : popOverType == 2
+                  ? taskOverlay()
+                  : ""}
+              </div>
+            )}
+          </div>
           <div className="flex flex-row justify-end content-end flex-wrap items-center">
             <div
               className={
@@ -64,7 +76,11 @@ export default function Home() {
                   {!popOver && <p className="mb-1 ">{x?.teks}</p>}
                   <button
                     onClick={() => {
+                      if (x.href == popOverType) {
+                        // popOver(true);
+                      }
                       setPopOver(!popOver);
+                      setPopOverType(x.href);
                       setPopOverBtnActive(i);
                     }}
                     className={` rounded-full p-5 aspect-square `}
