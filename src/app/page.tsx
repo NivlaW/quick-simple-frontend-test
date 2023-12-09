@@ -2,10 +2,12 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import InboxOverlay from "./components/InboxOverlay";
+import InboxOverlay from "../components/inbox/InboxOverlay";
+import TaskOverlay from "../components/task/TaskOverlay";
 import { listButton } from "./utils/constant";
 import ReactHtmlParser from "react-html-parser";
-import taskOverlay from "./components/taskOverlay";
+import { useRouter } from "next/navigation";
+import DetailInboxOverlay from "@/components/inbox/DetailInboxOverlay";
 
 export default function Home() {
   const [popup, setPopup] = useState(true);
@@ -15,6 +17,7 @@ export default function Home() {
   const [popOverTask, setPopOverTask] = useState(false);
   const [popOverBtnActive, setPopOverBtnActive] = useState(-1);
   const [listPopupButton, setlistPopupButton] = useState([]);
+  const router = useRouter();
 
   // setlistPopupButton(listButton());
 
@@ -46,22 +49,27 @@ export default function Home() {
           <div>
             {popOver && (
               <div>
-                {popOverType == 1
-                  ? InboxOverlay()
-                  : popOverType == 2
-                  ? taskOverlay()
-                  : ""}
+                {popOverType == 1 ? (
+                  // <InboxOverlay />
+                  <DetailInboxOverlay />
+                ) : popOverType == 2 ? (
+                  <TaskOverlay />
+                ) : (
+                  ""
+                )}
               </div>
             )}
           </div>
           <div className="flex flex-row justify-end content-end flex-wrap items-center">
             <div
               className={
-                "flex flex-row gap-5 transition-transform " +
+                "flex  gap-5 transition-transform " +
                 (popup
                   ? "translate-x-72"
                   : popOver
                   ? " translate-x-24 relative z-20"
+                  : popOverBtnActive == 1
+                  ? " translate-x-24 relative z-20 flex-row-reverse"
                   : "")
               }
             >
@@ -75,20 +83,21 @@ export default function Home() {
                 >
                   {!popOver && <p className="mb-1 ">{x?.teks}</p>}
                   <button
+                    // href={x.href == 1 ? "/main/inbox" : "/main/task"}
                     onClick={() => {
                       if (x.href == popOverType) {
                         setPopOver(true);
                       }
                       if (popOverType == x.href) {
                         setPopOverBtnActive(-1);
-                        setPopOver(false)
+                        setPopOver(false);
                         setPopOverInbox(true);
-                        setPopOverInbox(true);
-                      } else{
+                        setPopOverTask(true);
+                      } else {
                         setPopOverBtnActive(i);
-                        setPopOver(true)
+                        setPopOver(true);
                         setPopOverInbox(false);
-                        setPopOverInbox(false);
+                        setPopOverTask(false);
                       }
                       // setPopOver(!popOver);
                       setPopOverType(x.href);
