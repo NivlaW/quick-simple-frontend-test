@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 
 export default function DetailInboxOverlay() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isGroup, setIsGroup] = useState(false);
+  const [isRead, setIsRead] = useState(5);
   const inAwait = async () => {
     var load = false;
 
@@ -24,7 +24,7 @@ export default function DetailInboxOverlay() {
   return (
     <>
       <div className="sticky flex justify-end content-end m-5 ">
-        <div className="flex flex-col w-1/3 h-[50dvh] bg-white rounded-md text-black ">
+        <div className="flex flex-col w-1/3 h-[70dvh] bg-white rounded-md text-black ">
           <div className="flex p-5  items-center justify-between border-b ">
             <div className="flex">
               <button className="px-5">
@@ -65,97 +65,79 @@ export default function DetailInboxOverlay() {
               </svg>
             </button>
           </div>
-          {!isLoading ? (
-            <div className="flex flex-col overflow-y-scroll ">
-              {[1, 2, 3, 4, 5].map((x, i) => {
-                return (
-                  <>
-                    <Link className="flex p-5" href="">
-                      <div className="flex flex-cols-3 gap-5 items-center">
-                        {x == 2 ? (
-                          <div className="flex">
-                            <Avatar>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="12"
-                                height="12"
-                                viewBox="0 0 12 12"
-                                fill="none"
-                              >
-                                <path
-                                  fill-rule="evenodd"
-                                  clip-rule="evenodd"
-                                  d="M6 0C4.3425 0 3 1.3425 3 3C3 4.6575 4.3425 6 6 6C7.6575 6 9 4.6575 9 3C9 1.3425 7.6575 0 6 0ZM7.5 3C7.5 2.175 6.825 1.5 6 1.5C5.175 1.5 4.5 2.175 4.5 3C4.5 3.825 5.175 4.5 6 4.5C6.825 4.5 7.5 3.825 7.5 3ZM10.5 10.5C10.35 9.9675 8.025 9 6 9C3.9825 9 1.6725 9.96 1.5 10.5H10.5ZM0 10.5C0 8.505 3.9975 7.5 6 7.5C8.0025 7.5 12 8.505 12 10.5V12H0V10.5Z"
-                                  fill="black"
-                                  fill-opacity="0.54"
-                                />
-                              </svg>
-                            </Avatar>
-                            <Avatar
-                              sx={{
-                                marginInlineStart: "-1rem",
-                                bgcolor: "#2F80ED",
-                              }}
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="12"
-                                height="12"
-                                viewBox="0 0 12 12"
-                                fill="none"
-                              >
-                                <path
-                                  fill-rule="evenodd"
-                                  clip-rule="evenodd"
-                                  d="M6 0C4.3425 0 3 1.3425 3 3C3 4.6575 4.3425 6 6 6C7.6575 6 9 4.6575 9 3C9 1.3425 7.6575 0 6 0ZM7.5 3C7.5 2.175 6.825 1.5 6 1.5C5.175 1.5 4.5 2.175 4.5 3C4.5 3.825 5.175 4.5 6 4.5C6.825 4.5 7.5 3.825 7.5 3ZM10.5 10.5C10.35 9.9675 8.025 9 6 9C3.9825 9 1.6725 9.96 1.5 10.5H10.5ZM0 10.5C0 8.505 3.9975 7.5 6 7.5C8.0025 7.5 12 8.505 12 10.5V12H0V10.5Z"
-                                  fill="white"
-                                  fill-opacity="0.54"
-                                />
-                              </svg>
-                            </Avatar>
+          <div className="flex flex-col overflow-y-scroll h-full p-3">
+            {[1, 2, 3, 4, 5].map((x, i) => {
+              return (
+                <>
+                  {x == 1 || x == 3 ? (
+                    <>
+                      <div className="py-2 flex flex-col justify-end items-end align-middle">
+                        <div className="max-w-sm ">
+                          <p className="text-right text-[#9B51E0] font-semibold">
+                            You
+                          </p>
+                          <div className="flex flex-col p-3 rounded-lg bg-[#EEDCFF] text-left">
+                            <p className="text-sm whitespace-pre-line">
+                              Lorem ipsum dolor sit amet consectetur adipisicing
+                              elit.
+                            </p>
+                            <p className="mt-1 text-sm">19.32</p>
                           </div>
-                        ) : (
-                          <Avatar
-                            sx={{
-                              marginX: "0.7 rem",
-                              bgcolor: "#2F80ED",
-                            }}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="12"
-                              height="12"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M6 0C4.3425 0 3 1.3425 3 3C3 4.6575 4.3425 6 6 6C7.6575 6 9 4.6575 9 3C9 1.3425 7.6575 0 6 0ZM7.5 3C7.5 2.175 6.825 1.5 6 1.5C5.175 1.5 4.5 2.175 4.5 3C4.5 3.825 5.175 4.5 6 4.5C6.825 4.5 7.5 3.825 7.5 3ZM10.5 10.5C10.35 9.9675 8.025 9 6 9C3.9825 9 1.6725 9.96 1.5 10.5H10.5ZM0 10.5C0 8.505 3.9975 7.5 6 7.5C8.0025 7.5 12 8.505 12 10.5V12H0V10.5Z"
-                                fill="white"
-                                fill-opacity="0.54"
-                              />
-                            </svg>
-                          </Avatar>
-                        )}
-                        <div className="flex flex-col">
-                          <h5>
-                            <b className="text-[#2F80ED]">Lisa baliom3 1100</b>
-                          </h5>
-                          <p className="mb-0 text-[#333] font-semibold">
-                            cameron philips :
-                          </p>
-                          <p className="mb-0 text-[#4F4F4F] text-sm">
-                            please check this out
-                          </p>
                         </div>
                       </div>
-                    </Link>
-                    <Divider />
-                  </>
-                );
-              })}
-            </div>
+                      <div className="p-5 pb-0">
+                        <Divider className="text-sm">
+                          Today June 09,2021
+                        </Divider>
+                      </div>
+                    </>
+                  ) : x == 5 ? (
+                    <>
+                      <div className="p-5 pb-0">
+                        <Divider
+                          sx={{
+                            borderColor: "#EB5757",
+                            color: "#EB5757",
+                          }}
+                          className="text-sm text-[#EB5757]"
+                        >
+                          New Message
+                        </Divider>
+                      </div>
+                      <div className="py-2 flex flex-col justify-center items-start align-middle">
+                        <div className="max-w-sm ">
+                          <p className="text-left text-[#43B78D] font-semibold">
+                            Lisa
+                          </p>
+                          <div className="flex flex-col p-3 rounded-lg bg-[#D2F2EA] text-left">
+                            <p className="text-sm whitespace-pre-line">
+                              oekeoekeoeke
+                            </p>
+                            <p className="mt-1 text-sm">19.32</p>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="py-2 flex flex-col justify-center items-start align-middle">
+                        <div className="max-w-sm ">
+                          <p className="text-left text-[#E5A443] font-semibold">
+                            Lisa
+                          </p>
+                          <div className="flex flex-col p-3 rounded-lg bg-[#FCEED3] text-left">
+                            <p className="text-sm whitespace-pre-line">sure</p>
+                            <p className="mt-1 text-sm">19.32</p>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </>
+              );
+            })}
+          </div>
+          {/* {!isLoading ? (
           ) : (
             <div className="flex justify-center h-full items-center">
               <div className="flex flex-col gap-3 justify-center items-center">
@@ -185,7 +167,7 @@ export default function DetailInboxOverlay() {
                 Loading Chats ...
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </>

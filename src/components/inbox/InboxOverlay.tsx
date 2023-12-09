@@ -24,7 +24,7 @@ export default function InboxOverlay() {
   return (
     <>
       <div className="sticky flex justify-end content-end m-5 ">
-        <div className="flex flex-col p-3 w-1/3 h-[50dvh] bg-white rounded-md text-black ">
+        <div className="flex flex-col p-3 w-1/3 h-[70dvh] bg-white rounded-md text-black ">
           <input
             className="border mb-3 border-[#828282] rounded bg-transparent appearance-none focus:outline-none px-10 focus:shadow-outline w-full"
             type="search"
@@ -34,7 +34,7 @@ export default function InboxOverlay() {
           />
           {!isLoading ? (
             <div className="flex flex-col overflow-y-scroll ">
-              {[1, 2, 3, 4, 5].map((x, i) => {
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x, i) => {
                 return (
                   <>
                     <Link className="flex p-5" href="">
