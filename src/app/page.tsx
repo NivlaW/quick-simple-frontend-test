@@ -77,11 +77,21 @@ export default function Home() {
                   <button
                     onClick={() => {
                       if (x.href == popOverType) {
-                        // popOver(true);
+                        setPopOver(true);
                       }
-                      setPopOver(!popOver);
+                      if (popOverType == x.href) {
+                        setPopOverBtnActive(-1);
+                        setPopOver(false)
+                        setPopOverInbox(true);
+                        setPopOverInbox(true);
+                      } else{
+                        setPopOverBtnActive(i);
+                        setPopOver(true)
+                        setPopOverInbox(false);
+                        setPopOverInbox(false);
+                      }
+                      // setPopOver(!popOver);
                       setPopOverType(x.href);
-                      setPopOverBtnActive(i);
                     }}
                     className={` rounded-full p-5 aspect-square `}
                     style={{
