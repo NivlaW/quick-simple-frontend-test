@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 import {
   Box,
   CircularProgress,
@@ -10,17 +10,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function InboxOverlay() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isGroup, setIsGroup] = useState(false);
-  const inAwait = async () => {
-    var load = false;
-
-    setIsLoading(load);
-  };
-  useEffect(() => {
-    inAwait();
-  }, []);
+export default function MainPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  //   const PopOverType = useRef();
   return (
     <>
       <input
@@ -35,7 +27,7 @@ export default function InboxOverlay() {
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x, i) => {
             return (
               <>
-                <Link className="flex p-5" href="">
+                <Link className="flex p-5" href="/main/inbox" scroll={false}>
                   <div className="flex flex-cols-3 gap-5 items-center">
                     {x == 2 ? (
                       <div className="flex">
@@ -82,7 +74,7 @@ export default function InboxOverlay() {
                     ) : (
                       <Avatar
                         sx={{
-                          marginX: "0.7 rem",
+                          marginX: "0.7rem",
                           bgcolor: "#2F80ED",
                         }}
                       >

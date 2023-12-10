@@ -2,14 +2,18 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import InboxOverlay from "../components/inbox/InboxOverlay";
-import TaskOverlay from "../components/task/TaskOverlay";
-import { listButton } from "./utils/constant";
+// import InboxOverlay from "../components/inbox/InboxOverlay";
+// import TaskOverlay from "../components/task/TaskOverlay";
 import ReactHtmlParser from "react-html-parser";
 import { useRouter } from "next/navigation";
 import DetailInboxOverlay from "@/components/inbox/DetailInboxOverlay";
+import { listButton } from "../utils/constant";
 
-export default function Home() {
+export default function LayoutMain({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [popup, setPopup] = useState(true);
   const [popOver, setPopOver] = useState(false);
   const [popOverType, setPopOverType] = useState(0);
@@ -50,14 +54,15 @@ export default function Home() {
             {popOver && (
               <div className="sticky flex justify-end content-end m-5 ">
                 <div className="flex flex-col p-3 w-1/3 h-[70dvh] bg-white rounded-md text-black ">
-                  {popOverType == 1 ? (
+                  {children}
+                  {/* {popOverType == 1 ? (
                     <InboxOverlay />
                   ) : // <DetailInboxOverlay />
                   popOverType == 2 ? (
                     <TaskOverlay />
                   ) : (
                     ""
-                  )}
+                  )} */}
                 </div>
               </div>
             )}
@@ -66,9 +71,7 @@ export default function Home() {
             <div
               className={
                 "flex  gap-5 transition-transform " +
-                (popup
-                  ? "translate-x-72"
-                  : popOver
+                (popOver
                   ? " translate-x-24 relative z-20"
                   : popOverBtnActive == 1
                   ? " translate-x-24 relative z-20 flex-row-reverse"
@@ -84,8 +87,8 @@ export default function Home() {
                   }
                 >
                   {!popOver && <p className="mb-1 ">{x?.teks}</p>}
-                  <Link
-                    href={x.href == 1 ? "/inbox" : "/main/task"}
+                  <button
+                    // href={x.href == 1 ? "/inbox" : "/main/task"}
                     onClick={() => {
                       if (x.href == popOverType) {
                         setPopOver(true);
@@ -115,7 +118,7 @@ export default function Home() {
                     {popOverBtnActive == i
                       ? ReactHtmlParser(x.icon?.active)
                       : ReactHtmlParser(x?.icon?.nonactive)}
-                  </Link>
+                  </button>
                 </div>
               ))}
 
@@ -142,11 +145,11 @@ export default function Home() {
                 </button>
               </div> */}
             </div>
-            <Link
+            <button
               onClick={() => {
+                router.back();
                 // setPopup(!popup);
               }}
-              href={"/main"}
               className={
                 (popOver ? "bg-[#4F4F4F]" : "bg-[#2F80ED]") +
                 " m-5 me-10 rounded-full p-5 aspect-square "
@@ -159,7 +162,7 @@ export default function Home() {
                 height={30}
                 alt={"petir"}
               />
-            </Link>
+            </button>
           </div>
         </div>
       </main>
