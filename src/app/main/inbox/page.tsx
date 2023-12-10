@@ -27,11 +27,7 @@ export default function InboxPage() {
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x, i) => {
             return (
               <>
-                <Link
-                  className="flex p-5"
-                  href="/main/inbox/detail"
-                  scroll={false}
-                >
+                <Link className="flex p-5" href="/main/inbox/detail">
                   <div className="flex flex-cols-3 gap-5 items-center">
                     {x == 2 ? (
                       <div className="flex">

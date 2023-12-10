@@ -5,7 +5,8 @@ import Link from "next/link";
 // import InboxOverlay from "../components/inbox/InboxOverlay";
 // import TaskOverlay from "../components/task/TaskOverlay";
 import ReactHtmlParser from "react-html-parser";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+
 import DetailInboxOverlay from "@/components/inbox/DetailInboxOverlay";
 import { listButton } from "../utils/constant";
 
@@ -22,6 +23,18 @@ export default function LayoutMain({
   const [popOverBtnActive, setPopOverBtnActive] = useState(-1);
   const [listPopupButton, setlistPopupButton] = useState([]);
   const router = useRouter();
+  const curent = usePathname();
+
+  // const handleActive = async (e) => {
+  //   setPopOver(popOver);
+  //   var arr = [];
+  //   if (popOver) {
+  //     for (var data = 0; data < listButton.length; data++) {
+  //       arr.push(listButton[data].href);
+  //     }
+  //   }
+  //   setlistPopupButton(arr);
+  // };
 
   // setlistPopupButton(listButton());
 
@@ -90,33 +103,36 @@ export default function LayoutMain({
                     {!popOver && <p className="mb-1 ">{x?.teks}</p>}
                     <button
                       // href={x.href == 1 ? "/inbox" : "/main/task"}
-                      onClick={() => {
+                      onClick={async (e) => {
+                        e.preventDefault();
+
                         if (x.href == 1) {
                           router.push("/main/inbox");
-                        } else {
+                        } else if (x.href == 2) {
                           router.push("/main/task");
+                        } else {
+                          router.push("/main");
                         }
-                        if (x.href == popOverType) {
-                          setPopOver(true);
-                        }
-                        if (popOverType == x.href) {
-                          setPopOverBtnActive(-1);
-                          setPopOver(false);
-                          setPopOverInbox(true);
-                          setPopOverTask(true);
+                        setPopOverType(x.href);
+                        if (popOverType === x.href) {
+                          if (popOver === true) {
+                            setPopOverBtnActive(-1);
+                            setPopOver(false);
+                            router.push("/main");
+                          } else {
+                            setPopOverBtnActive(i);
+                            setPopOver(true);
+                          }
                         } else {
                           setPopOverBtnActive(i);
                           setPopOver(true);
-                          setPopOverInbox(false);
-                          setPopOverTask(false);
                         }
                         // setPopOver(!popOver);
-                        setPopOverType(x.href);
                       }}
                       className={` rounded-full p-5 aspect-square `}
                       style={{
                         backgroundColor:
-                          popOverBtnActive == i
+                          popOverBtnActive === i
                             ? x?.background?.active
                             : x?.background?.nonactive,
                       }}
@@ -153,7 +169,7 @@ export default function LayoutMain({
               </div>
               <button
                 onClick={() => {
-                  router.back();
+                  router.push("/");
                   // setPopup(!popup);
                 }}
                 className={
