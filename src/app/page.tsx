@@ -9,7 +9,7 @@ import ReactHtmlParser from "react-html-parser";
 import { useRouter } from "next/navigation";
 import DetailInboxOverlay from "@/components/inbox/DetailInboxOverlay";
 
-export default function Home() {
+export default function Home({ children }: { children: React.ReactNode }) {
   const [popup, setPopup] = useState(true);
   const [popOver, setPopOver] = useState(false);
   const [popOverType, setPopOverType] = useState(0);
@@ -50,14 +50,15 @@ export default function Home() {
             {popOver && (
               <div className="sticky flex justify-end content-end m-5 ">
                 <div className="flex flex-col p-3 w-1/3 h-[70dvh] bg-white rounded-md text-black ">
-                  {popOverType == 1 ? (
+                  {children}
+                  {/* {popOverType == 1 ? (
                     <InboxOverlay />
                   ) : // <DetailInboxOverlay />
                   popOverType == 2 ? (
                     <TaskOverlay />
                   ) : (
                     ""
-                  )}
+                  )} */}
                 </div>
               </div>
             )}

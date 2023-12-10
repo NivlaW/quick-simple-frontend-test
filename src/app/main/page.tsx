@@ -8,14 +8,17 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import InboxPage from "./inbox/page";
+import TaskPage from "./task/page";
 
 export default function MainPage() {
   const [isLoading, setIsLoading] = useState(false);
-  //   const PopOverType = useRef();
   return (
     <>
-      <input
+      {/* {PopOverType ? <InboxPage /> : <TaskPage />} */}
+      {/* <input
         className="border mb-3 border-[#828282] rounded bg-transparent appearance-none focus:outline-none px-10 focus:shadow-outline w-full"
         type="search"
         name=""
@@ -142,7 +145,7 @@ export default function MainPage() {
             Loading Chats ...
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 }
