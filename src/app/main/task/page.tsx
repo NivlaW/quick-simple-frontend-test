@@ -23,9 +23,18 @@ export default function TaskPage() {
   const [open, setOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
+  // function handleClick(x: any, i: any) {
+  //   if (x == i) {
+  //     setIsEdit(false);
+  //   } else {
+  //     if (isEdit == true) {
+  //       setIsEdit(false);
+  //     } else {
+  //       setIsEdit(true);
+  //     }
+  //   }
+  //   setOpen(!open);
+  // }
   return (
     <>
       <div className="flex justify-between ms-12 flex-row items-center ">
@@ -80,13 +89,23 @@ export default function TaskPage() {
         </button>
       </div>
       {!isLoading ? (
-        <div className="flex flex-col overflow-y-scroll ">
+        <div className="flex flex-col h-full overflow-y-scroll ">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x, i) => {
             return (
               <>
                 <div className="flex p-5 flex-col">
                   <button
-                    onClick={handleClick}
+                    onClick={() => {
+                      if (x == i) {
+                        setOpen(false);
+                      } else {
+                        if (open == true) {
+                          setOpen(false);
+                        } else {
+                          setOpen(true);
+                        }
+                      }
+                    }}
                     className="flex w-full flex-row-2 items-start align-top justify-between gap-5"
                   >
                     <div className="flex gap-5 items-center">

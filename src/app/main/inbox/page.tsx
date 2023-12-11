@@ -23,7 +23,7 @@ export default function InboxPage() {
         id=""
       />
       {!isLoading ? (
-        <div className="flex flex-col overflow-y-scroll ">
+        <div className="flex flex-col h-full overflow-y-scroll ">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x, i) => {
             return (
               <>
