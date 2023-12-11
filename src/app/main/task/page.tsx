@@ -117,7 +117,7 @@ export default function TaskPage() {
                       <p className="text-[#EB5757]">2 Days Left</p>
                       <p>12/06/2021</p>
                       <button className="px-2">
-                        {open ? (
+                        {x.task === OpenValue ? (
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="20"
