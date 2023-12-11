@@ -5,6 +5,7 @@ import {
   Avatar,
   circularProgressClasses,
   Divider,
+  Collapse,
 } from "@mui/material";
 import {
   Dropdown,
@@ -19,6 +20,12 @@ import { useEffect, useState } from "react";
 
 export default function TaskPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
   return (
     <>
       <div className="flex justify-between ms-12 flex-row items-center ">
@@ -77,94 +84,205 @@ export default function TaskPage() {
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x, i) => {
             return (
               <>
-                <Link className="flex p-5" href="/main/inbox/detail">
-                  <div className="flex w-full items-start justify-between gap-5">
+                <div className="flex p-5 flex-col">
+                  <button
+                    onClick={handleClick}
+                    className="flex w-full flex-row-2 items-start align-top justify-between gap-5"
+                  >
                     <div className="flex gap-5 items-center">
                       {x == 2 ? (
-                        <div className="flex">
-                          <Avatar>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="12"
-                              height="12"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M6 0C4.3425 0 3 1.3425 3 3C3 4.6575 4.3425 6 6 6C7.6575 6 9 4.6575 9 3C9 1.3425 7.6575 0 6 0ZM7.5 3C7.5 2.175 6.825 1.5 6 1.5C5.175 1.5 4.5 2.175 4.5 3C4.5 3.825 5.175 4.5 6 4.5C6.825 4.5 7.5 3.825 7.5 3ZM10.5 10.5C10.35 9.9675 8.025 9 6 9C3.9825 9 1.6725 9.96 1.5 10.5H10.5ZM0 10.5C0 8.505 3.9975 7.5 6 7.5C8.0025 7.5 12 8.505 12 10.5V12H0V10.5Z"
-                                fill="black"
-                                fill-opacity="0.54"
-                              />
-                            </svg>
-                          </Avatar>
-                          <Avatar
-                            sx={{
-                              marginInlineStart: "-1rem",
-                              bgcolor: "#2F80ED",
-                            }}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="12"
-                              height="12"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M6 0C4.3425 0 3 1.3425 3 3C3 4.6575 4.3425 6 6 6C7.6575 6 9 4.6575 9 3C9 1.3425 7.6575 0 6 0ZM7.5 3C7.5 2.175 6.825 1.5 6 1.5C5.175 1.5 4.5 2.175 4.5 3C4.5 3.825 5.175 4.5 6 4.5C6.825 4.5 7.5 3.825 7.5 3ZM10.5 10.5C10.35 9.9675 8.025 9 6 9C3.9825 9 1.6725 9.96 1.5 10.5H10.5ZM0 10.5C0 8.505 3.9975 7.5 6 7.5C8.0025 7.5 12 8.505 12 10.5V12H0V10.5Z"
-                                fill="white"
-                                fill-opacity="0.54"
-                              />
-                            </svg>
-                          </Avatar>
-                        </div>
+                        <input type="checkbox" className="" name="" id="" />
                       ) : (
-                        <Avatar
-                          sx={{
-                            marginX: "0.7rem",
-                            bgcolor: "#2F80ED",
-                          }}
-                        >
+                        <input type="checkbox" name="" id="" />
+                      )}
+                      <p className="mb-0 text-[#4F4F4F] text-left font-semibold">
+                        Close off Case #012920- RODRIGUES, Amiguel
+                      </p>
+                    </div>
+                    <div className="flex gap-2 items-start justify-end align-top">
+                      <p className="text-[#EB5757]">2 Days Left</p>
+                      <p>12/06/2021</p>
+                      <button className="px-2">
+                        {open ? (
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="12"
-                            height="12"
-                            viewBox="0 0 12 12"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                          >
+                            <path
+                              d="M6.175 13.0875L10 9.27086L13.825 13.0875L15 11.9125L10 6.91253L5 11.9125L6.175 13.0875Z"
+                              fill="#4F4F4F"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                          >
+                            <path
+                              d="M13.825 6.91248L10 10.7291L6.175 6.91248L5 8.08748L10 13.0875L15 8.08748L13.825 6.91248Z"
+                              fill="#4F4F4F"
+                            />
+                          </svg>
+                        )}
+                      </button>
+                      <Dropdown
+                        classNames={{
+                          base: " border-none rounded-lg bg-white focus:outline-none outline-none active:outline-none focus:ring-0 ring-offset-0 focus:ring-offset-0 appearance-none",
+                          content:
+                            " bg-transparent rounded-lg focus:outline-none outline-none active:outline-none focus:ring-0 ring-offset-0 focus:ring-offset-0 appearance-none hover:bg-0 text-black",
+                        }}
+                      >
+                        <DropdownTrigger>
+                          <button className="py-2 rounded-md focus:outline-none outline-none active:outline-none focus:ring-0 ring-offset-0 focus:ring-offset-0 border-2 appearance-none  focus:shadow-outline border-none">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="14"
+                              height="4"
+                              viewBox="0 0 14 4"
+                              fill="none"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M10.5 1.75C10.5 2.7125 11.2875 3.5 12.25 3.5C13.2125 3.5 14 2.7125 14 1.75C14 0.7875 13.2125 -3.44227e-08 12.25 -7.64949e-08C11.2875 -1.18567e-07 10.5 0.7875 10.5 1.75ZM8.75 1.75C8.75 0.7875 7.9625 -2.63908e-07 7 -3.0598e-07C6.0375 -3.48052e-07 5.25 0.7875 5.25 1.75C5.25 2.7125 6.0375 3.5 7 3.5C7.9625 3.5 8.75 2.7125 8.75 1.75ZM1.75 -5.35465e-07C2.7125 -4.93392e-07 3.5 0.7875 3.5 1.75C3.5 2.7125 2.7125 3.5 1.75 3.5C0.7875 3.5 -1.18567e-07 2.7125 -7.64949e-08 1.75C-3.44227e-08 0.787499 0.7875 -5.77537e-07 1.75 -5.35465e-07Z"
+                                fill="#828282"
+                              />
+                            </svg>
+                          </button>
+                        </DropdownTrigger>
+                        <DropdownMenu
+                          classNames={{
+                            base: "rounded-md focus:outline-none outline-none active:outline-none focus:ring-0 ring-offset-0 focus:ring-offset-0 appearance-none hover:bg-0 text-[#EB5757]",
+                          }}
+                        >
+                          <DropdownItem
+                            className="rounded-md focus:outline-none outline-none active:outline-none focus:ring-0 ring-offset-0 focus:ring-offset-0 appearance-none hover:bg-transparent active:bg-transparent focus:bg-transparent"
+                            key="personal"
+                          >
+                            Delete
+                          </DropdownItem>
+                        </DropdownMenu>
+                      </Dropdown>
+                    </div>
+                  </button>
+                  <Collapse
+                    in={open}
+                    timeout="auto"
+                    className="pt-2"
+                    unmountOnExit
+                  >
+                    <div className="flex flex-col ms-5 gap-5">
+                      <div className="flex flex-row">
+                        <button className="p-3">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
                             fill="none"
                           >
                             <path
                               fill-rule="evenodd"
                               clip-rule="evenodd"
-                              d="M6 0C4.3425 0 3 1.3425 3 3C3 4.6575 4.3425 6 6 6C7.6575 6 9 4.6575 9 3C9 1.3425 7.6575 0 6 0ZM7.5 3C7.5 2.175 6.825 1.5 6 1.5C5.175 1.5 4.5 2.175 4.5 3C4.5 3.825 5.175 4.5 6 4.5C6.825 4.5 7.5 3.825 7.5 3ZM10.5 10.5C10.35 9.9675 8.025 9 6 9C3.9825 9 1.6725 9.96 1.5 10.5H10.5ZM0 10.5C0 8.505 3.9975 7.5 6 7.5C8.0025 7.5 12 8.505 12 10.5V12H0V10.5Z"
-                              fill="white"
-                              fill-opacity="0.54"
+                              d="M9.99199 1.66663C5.39199 1.66663 1.66699 5.39996 1.66699 9.99996C1.66699 14.6 5.39199 18.3333 9.99199 18.3333C14.6003 18.3333 18.3337 14.6 18.3337 9.99996C18.3337 5.39996 14.6003 1.66663 9.99199 1.66663ZM10.0005 16.6666C6.31715 16.6666 3.33382 13.6833 3.33382 9.99996C3.33382 6.31662 6.31715 3.33329 10.0005 3.33329C13.6838 3.33329 16.6672 6.31662 16.6672 9.99996C16.6672 13.6833 13.6838 16.6666 10.0005 16.6666ZM9.16699 5.83329H10.417V10.2083L14.167 12.4333L13.542 13.4583L9.16699 10.8333V5.83329Z"
+                              fill="#2F80ED"
                             />
                           </svg>
-                        </Avatar>
-                      )}
-                      <div className="flex flex-col">
-                        <h5>
-                          <b className="text-[#2F80ED]">Lisa baliom3 1100</b>
-                        </h5>
-                        <p className="mb-0 text-[#333] font-semibold">
-                          cameron philips :
-                        </p>
-                        <p className="mb-0 text-[#4F4F4F] text-sm">
-                          please check this out
-                        </p>
+                        </button>
+                        <input
+                          type="date"
+                          className="p-2 border border-[#828282] rounded-md appearance-none outline-none"
+                          name=""
+                          id=""
+                        />
+                      </div>
+                      <div className="flex flex-row">
+                        <button
+                          className="p-3"
+                          onClick={() => {
+                            if (x == i) {
+                              setIsEdit(false);
+                            } else {
+                              if (isEdit == true) {
+                                setIsEdit(false);
+                              } else {
+                                setIsEdit(true);
+                              }
+                            }
+                          }}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="15"
+                            height="15"
+                            viewBox="0 0 15 15"
+                            fill="none"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M12.2165 0C12.0082 0 11.7915 0.0833333 11.6332 0.241667L10.1082 1.76667L13.2332 4.89167L14.7582 3.36667C15.0832 3.04167 15.0832 2.51667 14.7582 2.19167L12.8082 0.241667C12.6415 0.075 12.4332 0 12.2165 0ZM9.21667 5.01667L9.98333 5.78333L2.43333 13.3333H1.66667V12.5667L9.21667 5.01667ZM0 11.875L9.21667 2.65833L12.3417 5.78333L3.125 15H0V11.875Z"
+                              fill="#2F80ED"
+                            />
+                          </svg>
+                        </button>
+                        {!isEdit ? (
+                          <p>
+                            Closing off this case since this application has
+                            been cancelled. No one really understand how this
+                            case could possibly be cancelled. The options and
+                            the documents within this document were totally a
+                            guaranteed for a success!
+                          </p>
+                        ) : (
+                          <>
+                            <textarea
+                              name=""
+                              id=""
+                              // rows={auto}
+                              className="w-full border break-words border-[#828282] rounded-md p-2 outline-none overflow-y-hidden h-full"
+                            >
+                              Closing off this case since this application has
+                              been cancelled. No one really understand how this
+                              case could possibly be cancelled. The options and
+                              the documents within this document were totally a
+                              guaranteed for a success!
+                            </textarea>
+                            {/* <input
+                              name=""
+                              id=""
+                              className="w-full border border-[#828282] rounded-md p-2 outline-none"
+                              value="Closing off this case since this application has
+                            been cancelled. No one really understand how this
+                            case could possibly be cancelled. The options and
+                            the documents within this document were totally a
+                            guaranteed for a success!"
+                              defaultValue="Closing off this case since this application has
+                            been cancelled. No one really understand how this
+                            case could possibly be cancelled. The options and
+                            the documents within this document were totally a
+                            guaranteed for a success!"
+                            /> */}
+                          </>
+                        )}
                       </div>
                     </div>
-                    <div className="flex flex-col items-end justify-end align-top">
-                      <p className="mb-0 text-[#4F4F4F] text-sm">
-                        21/09/2021 10:45
-                      </p>
-                    </div>
-                  </div>
-                </Link>
+                    {/* <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemIcon>
+                          <StarBorder />
+                        </ListItemIcon>
+                        <ListItemText primary="Starred" />
+                      </ListItemButton>
+                    </List> */}
+                  </Collapse>
+                </div>
                 <Divider />
               </>
             );

@@ -65,7 +65,7 @@ export default function LayoutMain({
             <div>
               {popOver && (
                 <div className="sticky flex justify-end content-end m-5 ">
-                  <div className="flex flex-col p-3 w-1/3 h-[70dvh] bg-white rounded-md text-black ">
+                  <div className="flex flex-col p-3 w-[40dvw] h-[70dvh] bg-white rounded-md text-black ">
                     {children}
                     {/* {popOverType == 1 ? (
                     <InboxOverlay />
