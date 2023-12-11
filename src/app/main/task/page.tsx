@@ -6,6 +6,13 @@ import {
   circularProgressClasses,
   Divider,
 } from "@mui/material";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+} from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -14,26 +21,53 @@ export default function TaskPage() {
   const [isLoading, setIsLoading] = useState(false);
   return (
     <>
-      <div className="flex justify-between flex-row items-center ">
-        {/* <Dropdown align="end" title="Dropdown end" id="dropdown-menu-align-end">
-          <Dropdown.Item
-            className="text-sm"
-            onClick={() => {
-              // navigate(`/recruitment/edit/${val["id"]}`);
+      <div className="flex justify-between ms-12 flex-row items-center ">
+        <Dropdown
+          classNames={{
+            base: "border-2 border-[#828282] rounded-lg bg-white focus:outline-none outline-none active:outline-none focus:ring-0 ring-offset-0 focus:ring-offset-0 appearance-none",
+            content:
+              "bg-transparent rounded-lg focus:outline-none outline-none active:outline-none focus:ring-0 ring-offset-0 focus:ring-offset-0 appearance-none hover:bg-0 text-black",
+          }}
+        >
+          <DropdownTrigger>
+            <Button
+              variant="bordered"
+              className="rounded-md focus:outline-none outline-none active:outline-none focus:ring-0 ring-offset-0 focus:ring-offset-0 border-2 appearance-none  focus:shadow-outline border-[#828282]"
+            >
+              My Task{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="21"
+                height="20"
+                viewBox="0 0 21 20"
+                fill="none"
+              >
+                <path
+                  d="M14.5979 6.91248L10.7729 10.7291L6.94795 6.91248L5.77295 8.08748L10.7729 13.0875L15.7729 8.08748L14.5979 6.91248Z"
+                  fill="#4F4F4F"
+                />
+              </svg>
+            </Button>
+          </DropdownTrigger>
+          <DropdownMenu
+            classNames={{
+              base: "rounded-md focus:outline-none outline-none active:outline-none focus:ring-0 ring-offset-0 focus:ring-offset-0 appearance-none hover:bg-0 text-black",
             }}
           >
-            Edit
-          </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => {
-              // setDelete(true);
-              // setId(val.id);
-            }}
-            className="text-sm"
-          >
-            Delete
-          </Dropdown.Item>
-        </Dropdown> */}
+            <DropdownItem
+              className="rounded-md focus:outline-none outline-none active:outline-none focus:ring-0 ring-offset-0 focus:ring-offset-0 appearance-none hover:bg-transparent active:bg-transparent focus:bg-transparent"
+              key="personal"
+            >
+              Personal Errands
+            </DropdownItem>
+            <DropdownItem
+              className="rounded-md focus:outline-none outline-none active:outline-none focus:ring-0 ring-offset-0 focus:ring-offset-0 appearance-none hover:bg-transparent active:bg-transparent focus:bg-transparent"
+              key="urgent"
+            >
+              Urgent To Do
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
         <button className="bg-[#2F80ED] text-white p-2 rounded-md">
           New Task
         </button>
