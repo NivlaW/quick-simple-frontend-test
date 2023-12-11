@@ -6,8 +6,6 @@ import Link from "next/link";
 // import TaskOverlay from "../components/task/TaskOverlay";
 import ReactHtmlParser from "react-html-parser";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-
-import DetailInboxOverlay from "@/components/inbox/DetailInboxOverlay";
 import { listButton } from "../utils/constant";
 
 export default function LayoutMain({
@@ -103,7 +101,7 @@ export default function LayoutMain({
                     {!popOver && <p className="mb-1 ">{x?.teks}</p>}
                     <button
                       // href={x.href == 1 ? "/inbox" : "/main/task"}
-                      onClick={async (e) => {
+                      onClick={(e) => {
                         e.preventDefault();
 
                         if (x.href == 1) {

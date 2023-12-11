@@ -2,12 +2,9 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import InboxOverlay from "../components/inbox/InboxOverlay";
-import TaskOverlay from "../components/task/TaskOverlay";
 import { listButton } from "./utils/constant";
 import ReactHtmlParser from "react-html-parser";
 import { useRouter } from "next/navigation";
-import DetailInboxOverlay from "@/components/inbox/DetailInboxOverlay";
 
 export default function Home({ children }: { children: React.ReactNode }) {
   const [popup, setPopup] = useState(true);
@@ -64,85 +61,6 @@ export default function Home({ children }: { children: React.ReactNode }) {
             )}
           </div>
           <div className="flex flex-row justify-end content-end flex-wrap items-center">
-            <div
-              className={
-                "flex  gap-5 transition-transform " +
-                (popup
-                  ? "translate-x-72"
-                  : popOver
-                  ? " translate-x-24 relative z-20"
-                  : popOverBtnActive == 1
-                  ? " translate-x-24 relative z-20 flex-row-reverse"
-                  : "")
-              }
-            >
-              {listButton.map((x, i) => (
-                <div
-                  key={i}
-                  className={
-                    "flex items-center justify-center flex-col " +
-                    (!popOver ? "mb-5" : "my-5")
-                  }
-                >
-                  {!popOver && <p className="mb-1 ">{x?.teks}</p>}
-                  <Link
-                    href={x.href == 1 ? "/inbox" : "/main/task"}
-                    onClick={() => {
-                      if (x.href == popOverType) {
-                        setPopOver(true);
-                      }
-                      if (popOverType == x.href) {
-                        setPopOverBtnActive(-1);
-                        setPopOver(false);
-                        setPopOverInbox(true);
-                        setPopOverTask(true);
-                      } else {
-                        setPopOverBtnActive(i);
-                        setPopOver(true);
-                        setPopOverInbox(false);
-                        setPopOverTask(false);
-                      }
-                      // setPopOver(!popOver);
-                      setPopOverType(x.href);
-                    }}
-                    className={` rounded-full p-5 aspect-square `}
-                    style={{
-                      backgroundColor:
-                        popOverBtnActive == i
-                          ? x?.background?.active
-                          : x?.background?.nonactive,
-                    }}
-                  >
-                    {popOverBtnActive == i
-                      ? ReactHtmlParser(x.icon?.active)
-                      : ReactHtmlParser(x?.icon?.nonactive)}
-                  </Link>
-                </div>
-              ))}
-
-              {/* <div
-                className={
-                  "flex items-center justify-center flex-col " +
-                  (!popOver ? "mb-5" : "my-5")
-                }
-              >
-                {!popOver && <p className="mb-1 ">inbox</p>}
-                <button
-                  onClick={(i) => {
-                    setPopOver(!popOver);
-                  }}
-                  className="bg-white rounded-full p-5 aspect-square "
-                >
-                  <Image
-                    src={"/image/inbox.svg"}
-                    className="aspect-square"
-                    width={25}
-                    height={25}
-                    alt={"inbox"}
-                  />
-                </button>
-              </div> */}
-            </div>
             <Link
               onClick={() => {
                 // setPopup(!popup);
