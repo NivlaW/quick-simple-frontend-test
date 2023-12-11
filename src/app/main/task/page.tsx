@@ -1,4 +1,5 @@
 "use client";
+import { testTask } from "@/app/utils/constant";
 import {
   Box,
   CircularProgress,
@@ -21,20 +22,22 @@ import { useEffect, useState } from "react";
 export default function TaskPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [OpenValue, setOpenValue] = useState(-1);
   const [isEdit, setIsEdit] = useState(false);
 
-  // function handleClick(x: any, i: any) {
-  //   if (x == i) {
-  //     setIsEdit(false);
-  //   } else {
-  //     if (isEdit == true) {
-  //       setIsEdit(false);
-  //     } else {
-  //       setIsEdit(true);
-  //     }
-  //   }
-  //   setOpen(!open);
-  // }
+  const handleClick = (x: { task: number }) => {
+    if (x) {
+      if (open) {
+        setOpenValue(x.task);
+        setOpen(open);
+      } else {
+        setOpenValue(x.task);
+        setOpen(!open);
+      }
+      setOpenValue(x.task);
+      setOpen(!open);
+    }
+  };
   return (
     <>
       <div className="flex justify-between ms-12 flex-row items-center ">
@@ -90,26 +93,18 @@ export default function TaskPage() {
       </div>
       {!isLoading ? (
         <div className="flex flex-col h-full overflow-y-scroll ">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x, i) => {
+          {testTask.map((x, i) => {
             return (
               <>
-                <div className="flex p-5 flex-col">
+                <div key={i} className="flex p-5 flex-col">
                   <button
-                    onClick={() => {
-                      if (x == i) {
-                        setOpen(false);
-                      } else {
-                        if (open == true) {
-                          setOpen(false);
-                        } else {
-                          setOpen(true);
-                        }
-                      }
+                    onClick={async (e) => {
+                      handleClick(x);
                     }}
                     className="flex w-full flex-row-2 items-start align-top justify-between gap-5"
                   >
                     <div className="flex gap-5 items-center">
-                      {x == 2 ? (
+                      {i == 2 ? (
                         <input type="checkbox" className="" name="" id="" />
                       ) : (
                         <input type="checkbox" name="" id="" />
@@ -191,7 +186,7 @@ export default function TaskPage() {
                     </div>
                   </button>
                   <Collapse
-                    in={open}
+                    in={x.task === OpenValue || !open ? open : !open}
                     timeout="auto"
                     className="pt-2"
                     unmountOnExit
@@ -225,7 +220,7 @@ export default function TaskPage() {
                         <button
                           className="p-3"
                           onClick={() => {
-                            if (x == i) {
+                            if (x.task == i) {
                               setIsEdit(false);
                             } else {
                               if (isEdit == true) {
