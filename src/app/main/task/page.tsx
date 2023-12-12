@@ -21,6 +21,7 @@ import Link from "next/link";
 import { SetStateAction, Suspense, useEffect, useState } from "react";
 import loading from "../loading";
 import Loading from "../loading";
+import moment from "moment";
 
 export default function TaskPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,10 +38,9 @@ export default function TaskPage() {
     task();
     setIsLoading(false);
   }, []);
-  console.log(listTask);
-  const handleClick = (i: SetStateAction<number>) => {
+  const handleClick = (i: number) => {
     if (i) {
-      if (open) {
+      if (open && OpenValue) {
         setOpenValue(i);
         setOpen(open);
       } else {
@@ -107,6 +107,9 @@ export default function TaskPage() {
       {!isLoading ? (
         <div className="flex flex-col h-full overflow-y-scroll ">
           {listTask.map((x: any, i) => {
+            var date2 = moment(x?.date).format("DD");
+            var d = moment().format("DD");
+            const ago = parseInt(date2) - parseInt(d);
             return (
               <>
                 <div key={i} className="flex p-5 flex-col">
@@ -133,8 +136,8 @@ export default function TaskPage() {
                       </p>
                     </div>
                     <div className="flex gap-2 items-start justify-end align-top">
-                      <p className="text-[#EB5757]">2 Days Left</p>
-                      <p>12/06/2021</p>
+                      <p className="text-[#EB5757]">{ago} days ago</p>
+                      <p>{x && moment(x?.date).format("DD/MM/YYYY")}</p>
                       <button className="px-2">
                         {i === OpenValue ? (
                           <svg
@@ -235,7 +238,7 @@ export default function TaskPage() {
                           id=""
                         />
                       </div>
-                      <div className="flex flex-row">
+                      <div className="flex flex-row items-center align-middle">
                         <button
                           className="p-3"
                           onClick={() => {
@@ -266,13 +269,7 @@ export default function TaskPage() {
                           </svg>
                         </button>
                         {!isEdit ? (
-                          <p>
-                            Closing off this case since this application has
-                            been cancelled. No one really understand how this
-                            case could possibly be cancelled. The options and
-                            the documents within this document were totally a
-                            guaranteed for a success!
-                          </p>
+                          <p className="mb-0"> {x && x.content}</p>
                         ) : (
                           <>
                             <textarea
@@ -281,11 +278,7 @@ export default function TaskPage() {
                               // rows={auto}
                               className="w-full border break-words border-[#828282] rounded-md p-2 outline-none overflow-y-hidden h-full"
                             >
-                              Closing off this case since this application has
-                              been cancelled. No one really understand how this
-                              case could possibly be cancelled. The options and
-                              the documents within this document were totally a
-                              guaranteed for a success!
+                              {x && x.content}
                             </textarea>
                           </>
                         )}
