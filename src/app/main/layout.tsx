@@ -83,10 +83,10 @@ export default function LayoutMain({
               <div
                 className={
                   "flex  gap-5 transition-transform " +
-                  (popOver
+                  (popOver && popOverBtnActive === 1
                     ? " translate-x-24 relative z-20"
-                    : popOverBtnActive == 1
-                    ? " translate-x-24 relative z-20 flex-row-reverse"
+                    : popOverBtnActive === 0
+                    ? "flex-row-reverse translate-x-24 relative z-20 "
                     : "")
                 }
               >
