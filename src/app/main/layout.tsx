@@ -19,26 +19,9 @@ export default function LayoutMain({
   const [popOverInbox, setPopOverInbox] = useState(false);
   const [popOverTask, setPopOverTask] = useState(false);
   const [popOverBtnActive, setPopOverBtnActive] = useState(-1);
-  const [listPopupButton, setlistPopupButton] = useState([]);
   const router = useRouter();
   const curent = usePathname();
 
-  // const handleActive = async (e) => {
-  //   setPopOver(popOver);
-  //   var arr = [];
-  //   if (popOver) {
-  //     for (var data = 0; data < listButton.length; data++) {
-  //       arr.push(listButton[data].href);
-  //     }
-  //   }
-  //   setlistPopupButton(arr);
-  // };
-
-  // setlistPopupButton(listButton());
-
-  // const toggleIsActive = (i) => {
-  //   setPopOverBtnActive(i);
-  // };
   return (
     <>
       <div className="flex w-full flex-row bg-[#333333]">

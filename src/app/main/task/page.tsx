@@ -1,4 +1,5 @@
 "use client";
+import { getTask } from "@/app/repository/TaskRepository";
 import { testTask } from "@/app/utils/constant";
 import {
   Box,
@@ -17,24 +18,36 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { SetStateAction, Suspense, useEffect, useState } from "react";
+import loading from "../loading";
+import Loading from "../loading";
 
 export default function TaskPage() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [OpenValue, setOpenValue] = useState(-1);
   const [isEdit, setIsEdit] = useState(false);
+  const [listTask, setlistTask] = useState([]);
 
-  const handleClick = (x: { task: number }) => {
-    if (x) {
+  useEffect(() => {
+    const task = async () => {
+      var data = await getTask();
+      setlistTask(data);
+    };
+    task();
+    setIsLoading(false);
+  }, []);
+  console.log(listTask);
+  const handleClick = (i: SetStateAction<number>) => {
+    if (i) {
       if (open) {
-        setOpenValue(x.task);
+        setOpenValue(i);
         setOpen(open);
       } else {
-        setOpenValue(x.task);
+        setOpenValue(i);
         setOpen(!open);
       }
-      setOpenValue(x.task);
+      setOpenValue(i);
       setOpen(!open);
     }
   };
@@ -93,31 +106,37 @@ export default function TaskPage() {
       </div>
       {!isLoading ? (
         <div className="flex flex-col h-full overflow-y-scroll ">
-          {testTask.map((x, i) => {
+          {listTask.map((x: any, i) => {
             return (
               <>
                 <div key={i} className="flex p-5 flex-col">
                   <button
-                    onClick={async (e) => {
-                      handleClick(x);
+                    onClick={() => {
+                      handleClick(i);
                     }}
                     className="flex w-full flex-row-2 items-start align-top justify-between gap-5"
                   >
                     <div className="flex gap-5 items-center">
-                      {i == 2 ? (
-                        <input type="checkbox" className="" name="" id="" />
+                      {x.is_checked == 1 ? (
+                        <input
+                          type="checkbox"
+                          checked
+                          className=""
+                          name=""
+                          id=""
+                        />
                       ) : (
                         <input type="checkbox" name="" id="" />
                       )}
                       <p className="mb-0 text-[#4F4F4F] text-left font-semibold">
-                        Close off Case #012920- RODRIGUES, Amiguel
+                        {x && x?.title}
                       </p>
                     </div>
                     <div className="flex gap-2 items-start justify-end align-top">
                       <p className="text-[#EB5757]">2 Days Left</p>
                       <p>12/06/2021</p>
                       <button className="px-2">
-                        {x.task === OpenValue ? (
+                        {i === OpenValue ? (
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="20"
@@ -186,7 +205,7 @@ export default function TaskPage() {
                     </div>
                   </button>
                   <Collapse
-                    in={x.task === OpenValue || !open ? open : !open}
+                    in={i === OpenValue || !open ? open : !open}
                     timeout="auto"
                     className="pt-2"
                     unmountOnExit
@@ -220,7 +239,7 @@ export default function TaskPage() {
                         <button
                           className="p-3"
                           onClick={() => {
-                            if (x.task == i) {
+                            if (x == i) {
                               setIsEdit(false);
                             } else {
                               if (isEdit == true) {
@@ -268,33 +287,10 @@ export default function TaskPage() {
                               the documents within this document were totally a
                               guaranteed for a success!
                             </textarea>
-                            {/* <input
-                              name=""
-                              id=""
-                              className="w-full border border-[#828282] rounded-md p-2 outline-none"
-                              value="Closing off this case since this application has
-                            been cancelled. No one really understand how this
-                            case could possibly be cancelled. The options and
-                            the documents within this document were totally a
-                            guaranteed for a success!"
-                              defaultValue="Closing off this case since this application has
-                            been cancelled. No one really understand how this
-                            case could possibly be cancelled. The options and
-                            the documents within this document were totally a
-                            guaranteed for a success!"
-                            /> */}
                           </>
                         )}
                       </div>
                     </div>
-                    {/* <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemIcon>
-                          <StarBorder />
-                        </ListItemIcon>
-                        <ListItemText primary="Starred" />
-                      </ListItemButton>
-                    </List> */}
                   </Collapse>
                 </div>
                 <Divider />
