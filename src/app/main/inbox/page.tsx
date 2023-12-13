@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 export default function InboxPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [listInbox, setlistInbox] = useState([])
-  //   const PopOverType = useRef();
+
   const inbox = async () => {
       var data = await getInbox();
       if (!data) {

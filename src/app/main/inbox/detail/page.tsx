@@ -20,7 +20,6 @@ export default function DetailInboxPage() {
   const [name, setName] = useState('');
   const [partisip, setPartisip] = useState('');
   const [listDInbox, setlistDInbox] = useState([])
-  //   const PopOverType = useRef();
 
   
   useEffect(() => {
