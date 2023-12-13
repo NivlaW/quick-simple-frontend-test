@@ -42,7 +42,6 @@ export default function MainPage() {
               thickness={4}
             />
           </Box>
-          Loading
         </div>
       </div>
     </>
