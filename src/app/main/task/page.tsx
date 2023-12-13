@@ -148,7 +148,9 @@ export default function TaskPage() {
                       </p>
                     </div>
                     <div className="flex gap-2 items-start justify-end align-top">
-                      <p className="text-[#EB5757]">{ago} days ago</p>
+                      <p className="text-[#EB5757]">
+                        {x.is_checked == 0 && `${ago} days ago`}
+                      </p>
                       <p>{x && moment(x?.date).format("DD/MM/YYYY")}</p>
                       <button className="px-2">
                         {i === OpenValue ? (
