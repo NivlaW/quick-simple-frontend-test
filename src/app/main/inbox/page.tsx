@@ -1,4 +1,5 @@
 "use client";
+import { getInbox } from "@/app/repository/InboxRepository";
 import {
   Box,
   CircularProgress,
@@ -6,13 +7,29 @@ import {
   circularProgressClasses,
   Divider,
 } from "@mui/material";
+import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function InboxPage() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [listInbox, setlistInbox] = useState([])
   //   const PopOverType = useRef();
+
+  useEffect(() => {
+    const inbox = async () => {
+      var data = await getInbox();
+      if (!data) {
+        setIsLoading(isLoading)
+      } else {
+        setlistInbox(data)
+        setIsLoading(!isLoading)
+      }
+      // console.log(data)
+    };
+    inbox();
+  }, []);
   return (
     <>
       <input
@@ -24,13 +41,13 @@ export default function InboxPage() {
       />
       {!isLoading ? (
         <div className="flex flex-col h-full overflow-y-scroll ">
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((x, i) => {
+          {listInbox.map((x: any, i) => {
             return (
               <>
                 <Link className="flex p-5" href="/main/inbox/detail">
                   <div className="flex w-full items-start justify-between gap-5">
                     <div className="flex gap-5 items-center">
-                      {x == 2 ? (
+                      {x?.is_group == 0 ? (
                         <div className="flex">
                           <Avatar>
                             <svg
@@ -98,7 +115,7 @@ export default function InboxPage() {
                       )}
                       <div className="flex flex-col">
                         <h5>
-                          <b className="text-[#2F80ED]">Lisa baliom3 1100</b>
+                          <b className="text-[#2F80ED]">{x?.name}</b>
                         </h5>
                         <p className="mb-0 text-[#333] font-semibold">
                           cameron philips :
@@ -110,7 +127,7 @@ export default function InboxPage() {
                     </div>
                     <div className="flex flex-col items-end justify-end align-top">
                       <p className="mb-0 text-[#4F4F4F] text-sm">
-                        21/09/2021 10:45
+                        {x && moment(x?.date).format("DD/MM/YYYY H:mm")}
                       </p>
                     </div>
                   </div>

@@ -1,4 +1,5 @@
 "use client";
+import { getDetailInbox } from "@/app/repository/InboxRepository";
 import {
   Box,
   CircularProgress,
@@ -6,6 +7,7 @@ import {
   circularProgressClasses,
   Divider,
 } from "@mui/material";
+import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -15,13 +17,25 @@ export default function DetailInboxPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isRead, setIsRead] = useState(5);
   const router = useRouter();
-  const inAwait = async () => {
-    var load = false;
+  const [name, setName] = useState('');
+  const [partisip, setPartisip] = useState('');
+  const [listDInbox, setlistDInbox] = useState([])
+  //   const PopOverType = useRef();
 
-    setIsLoading(load);
-  };
+  
   useEffect(() => {
-    inAwait();
+    const dinbox = async () => {
+      var data = await getDetailInbox();
+      if (!data) {
+        setIsLoading(isLoading)
+      } else {
+        setlistDInbox(data?.inboxes)
+        setName(data?.name)
+        setPartisip(data?.participants.length)
+        setIsLoading(!isLoading)
+      }
+    };
+    dinbox();
   }, []);
   return (
     <>
@@ -43,10 +57,10 @@ export default function DetailInboxPage() {
           </button>
           <div className="flex ps-5 flex-col">
             <h5>
-              <b className="text-[#2F80ED] text-md">Lisa baliom3 1100</b>
+              <b className="text-[#2F80ED] text-md">{name}</b>
             </h5>
             <p className="mb-0 text-[#333] font-semibold text-xs">
-              3 Participan
+              {partisip} Participan
             </p>
           </div>
         </div>
@@ -67,7 +81,7 @@ export default function DetailInboxPage() {
       </div>
       <div className="flex flex-col-reverse overflow-y-scroll h-full p-3">
         <div className="flex flex-col ">
-          {[1, 2, 3, 4, 5].map((x, i) => {
+          {listDInbox.map((x:any, i) => {
             return (
               <>
                 {x == 1 || x == 3 ? (
@@ -75,14 +89,13 @@ export default function DetailInboxPage() {
                     <div className="py-2 flex flex-col justify-end items-end align-middle">
                       <div className="max-w-sm ">
                         <p className="text-right text-[#9B51E0] font-semibold">
-                          You
+                          {x.sender ? x.sender : !x.sender ? `You` : `You`}
                         </p>
                         <div className="flex flex-col p-3 rounded-lg bg-[#EEDCFF] text-left">
                           <p className="text-sm whitespace-pre-line">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit.
+                            {x.text}
                           </p>
-                          <p className="mt-1 text-sm">19.32</p>
+                          <p className="mt-1 text-sm">{x && moment(x?.send_at).format("H:mm")}</p>
                         </div>
                       </div>
                     </div>
@@ -90,7 +103,7 @@ export default function DetailInboxPage() {
                       <Divider className="text-sm">Today June 09,2021</Divider>
                     </div>
                   </>
-                ) : x == 5 ? (
+                ) : x.is_read == 0 ? (
                   <>
                     <div className="p-5 pb-0">
                       <Divider
@@ -106,13 +119,13 @@ export default function DetailInboxPage() {
                     <div className="py-2 flex flex-col justify-center items-start align-middle">
                       <div className="max-w-sm ">
                         <p className="text-left text-[#43B78D] font-semibold">
-                          Lisa
+                           {x.sender}
                         </p>
                         <div className="flex flex-col p-3 rounded-lg bg-[#D2F2EA] text-left">
                           <p className="text-sm whitespace-pre-line">
-                            oekeoekeoeke
+                            {x.text}
                           </p>
-                          <p className="mt-1 text-sm">19.32</p>
+                          <p className="mt-1 text-sm">{x && moment(x?.send_at).format("H:mm")}</p>
                         </div>
                       </div>
                     </div>
@@ -122,11 +135,11 @@ export default function DetailInboxPage() {
                     <div className="py-2 flex flex-col justify-center items-start align-middle">
                       <div className="max-w-sm ">
                         <p className="text-left text-[#E5A443] font-semibold">
-                          Lisa
+                          {x.sender}
                         </p>
                         <div className="flex flex-col p-3 rounded-lg bg-[#FCEED3] text-left">
-                          <p className="text-sm whitespace-pre-line">sure</p>
-                          <p className="mt-1 text-sm">19.32</p>
+                          <p className="text-sm whitespace-pre-line">{x.text}</p>
+                          <p className="mt-1 text-sm">{x && moment(x?.send_at).format("H:mm")}</p>
                         </div>
                       </div>
                     </div>

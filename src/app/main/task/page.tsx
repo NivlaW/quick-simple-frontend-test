@@ -19,24 +19,46 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { SetStateAction, Suspense, useEffect, useState } from "react";
-import loading from "../loading";
-import Loading from "../loading";
 import moment from "moment";
+import useSWR from "swr";
+// import fetch from 'unfetch'
+ 
+// const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+// const fetcher = 'https://nirwanalines.000webhostapp.com' => fetch(...args).then((res) => res.json())
 
 export default function TaskPage() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isEror, setIsEror] = useState(false);
   const [open, setOpen] = useState(false);
-  const [OpenValue, setOpenValue] = useState(-1);
+  const [OpenValue, setOpenValue] = useState(1);
   const [isEdit, setIsEdit] = useState(false);
   const [listTask, setlistTask] = useState([]);
-
+  
+  // const { data, error } = useSWR(fetch('https://nirwanalines.000webhostapp.com/api/tasks').then((res) => res.json()));
+  
+  
   useEffect(() => {
+    // if (error) {
+    //   setIsEror(!isEror)
+    // };
+    // if (!data) {
+    //   setIsLoading(isLoading)
+    // } else {
+    //   setlistTask(data)
+    //   setIsLoading(!isLoading)
+    // }
     const task = async () => {
       var data = await getTask();
-      setlistTask(data);
+      if (!data) {
+        setIsLoading(isLoading)
+      } else {
+        setlistTask(data)
+        setIsLoading(!isLoading)
+      }
+      // console.log(data)
     };
     task();
-    setIsLoading(false);
   }, []);
   const handleClick = (i: number) => {
     if (i) {
@@ -317,7 +339,7 @@ export default function TaskPage() {
                 thickness={4}
               />
             </Box>
-            Loading Chats ...
+            Loading Task...
           </div>
         </div>
       )}
