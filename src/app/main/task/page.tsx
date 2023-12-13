@@ -127,6 +127,7 @@ export default function TaskPage() {
                     <div className="flex gap-5 items-center">
                       {x.is_checked == 1 ? (
                         <input
+                          disabled
                           type="checkbox"
                           checked
                           className=""
@@ -136,7 +137,13 @@ export default function TaskPage() {
                       ) : (
                         <input type="checkbox" name="" id="" />
                       )}
-                      <p className="mb-0 text-[#4F4F4F] text-left font-semibold">
+                      <p
+                        className={
+                          x.is_checked == 1
+                            ? "mb-0 line-through text-[#4F4F4F] text-left font-semibold"
+                            : "mb-0 text-[#4F4F4F] text-left font-semibold"
+                        }
+                      >
                         {x && x?.title}
                       </p>
                     </div>

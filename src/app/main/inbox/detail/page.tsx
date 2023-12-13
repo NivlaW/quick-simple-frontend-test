@@ -18,7 +18,7 @@ export default function DetailInboxPage() {
   const [isRead, setIsRead] = useState(5);
   const router = useRouter();
   const [name, setName] = useState("");
-  const [partisip, setPartisip] = useState("");
+  const [partisip, setPartisip] = useState([]);
   const [listDInbox, setlistDInbox] = useState([]);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function DetailInboxPage() {
       } else {
         setlistDInbox(data?.inboxes);
         setName(data?.name);
-        setPartisip(data?.participants.length);
+        setPartisip(data?.participants);
         setIsLoading(!isLoading);
       }
     };
@@ -58,7 +58,7 @@ export default function DetailInboxPage() {
               <b className="text-[#2F80ED] text-md">{name}</b>
             </h5>
             <p className="mb-0 text-[#333] font-semibold text-xs">
-              {partisip} Participan
+              {partisip.length} Participan
             </p>
           </div>
         </div>
@@ -80,6 +80,8 @@ export default function DetailInboxPage() {
       <div className="flex flex-col-reverse overflow-y-scroll h-full p-3">
         <div className="flex flex-col ">
           {listDInbox.map((x: any, i) => {
+            console.log(partisip[0]);
+            // console.log(partisip[1]);
             return (
               <>
                 {x?.sender == 0 ? (
@@ -115,10 +117,26 @@ export default function DetailInboxPage() {
                     </div>
                     <div className="py-2 flex flex-col justify-center items-start align-middle">
                       <div className="max-w-sm ">
-                        <p className="text-left text-[#43B78D] font-semibold">
+                        <p
+                          className={
+                            x.sender == partisip[0]
+                              ? "text-[#43B78D] text-left font-semibold"
+                              : x.sender == partisip[1]
+                              ? "text-[#E5A443] text-left font-semibold"
+                              : ""
+                          }
+                        >
                           {x.sender}
                         </p>
-                        <div className="flex flex-col p-3 rounded-lg bg-[#D2F2EA] text-left">
+                        <div
+                          className={
+                            x.sender == partisip[0]
+                              ? "bg-[#D2F2EA] flex flex-col p-3 rounded-lg text-left"
+                              : x.sender == partisip[1]
+                              ? "bg-[#FCEED3] flex flex-col p-3 rounded-lg text-left"
+                              : ""
+                          }
+                        >
                           <p className="text-sm whitespace-pre-line">
                             {x.text}
                           </p>
@@ -133,10 +151,26 @@ export default function DetailInboxPage() {
                   <>
                     <div className="py-2 flex flex-col justify-center items-start align-middle">
                       <div className="max-w-sm ">
-                        <p className="text-left text-[#E5A443] font-semibold">
+                        <p
+                          className={
+                            x.sender == partisip[0]
+                              ? "text-[#43B78D] text-left font-semibold"
+                              : x.sender == partisip[1]
+                              ? "text-[#E5A443] text-left font-semibold"
+                              : ""
+                          }
+                        >
                           {x.sender}
                         </p>
-                        <div className="flex flex-col p-3 rounded-lg bg-[#FCEED3] text-left">
+                        <div
+                          className={
+                            x.sender == partisip[0]
+                              ? "bg-[#D2F2EA] flex flex-col p-3 rounded-lg text-left"
+                              : x.sender == partisip[1]
+                              ? "bg-[#FCEED3] flex flex-col p-3 rounded-lg text-left"
+                              : ""
+                          }
+                        >
                           <p className="text-sm whitespace-pre-line">
                             {x.text}
                           </p>
