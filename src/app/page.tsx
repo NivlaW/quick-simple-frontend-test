@@ -6,7 +6,7 @@ import { listButton } from "./utils/constant";
 import ReactHtmlParser from "react-html-parser";
 import { useRouter } from "next/navigation";
 
-export default function Home({ children }: { children: React.ReactNode }) {
+export default function Home() {
   const [popup, setPopup] = useState(true);
   const [popOver, setPopOver] = useState(false);
   const [popOverType, setPopOverType] = useState(0);
@@ -43,23 +43,7 @@ export default function Home({ children }: { children: React.ReactNode }) {
         </div>
 
         <div className="flex flex-col flex-nowrap w-full justify-end content-end fixed bottom-0 right-0">
-          <div>
-            {popOver && (
-              <div className="sticky flex justify-end content-end m-5 ">
-                <div className="flex flex-col p-3 w-1/3 h-[70dvh] bg-white rounded-md text-black ">
-                  {children}
-                  {/* {popOverType == 1 ? (
-                    <InboxOverlay />
-                  ) : // <DetailInboxOverlay />
-                  popOverType == 2 ? (
-                    <TaskOverlay />
-                  ) : (
-                    ""
-                  )} */}
-                </div>
-              </div>
-            )}
-          </div>
+          <div></div>
           <div className="flex flex-row justify-end content-end flex-wrap items-center">
             <Link
               onClick={() => {
