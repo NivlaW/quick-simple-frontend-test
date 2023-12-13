@@ -238,6 +238,7 @@ export default function TaskPage() {
                         </button>
                         <input
                           type="date"
+                          value={x && moment(x?.date).format("YYYY-MM-DD")}
                           className="p-2 border border-[#828282] rounded-md appearance-none outline-none"
                           name=""
                           id=""
