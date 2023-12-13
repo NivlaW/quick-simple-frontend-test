@@ -16,9 +16,7 @@ export default function InboxPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [listInbox, setlistInbox] = useState([])
   //   const PopOverType = useRef();
-
-  useEffect(() => {
-    const inbox = async () => {
+  const inbox = async () => {
       var data = await getInbox();
       if (!data) {
         setIsLoading(isLoading)
@@ -28,6 +26,7 @@ export default function InboxPage() {
       }
       // console.log(data)
     };
+  useEffect(() => {
     inbox();
   }, []);
   return (
@@ -47,7 +46,7 @@ export default function InboxPage() {
                 <Link className="flex p-5" href="/main/inbox/detail">
                   <div className="flex w-full items-start justify-between gap-5">
                     <div className="flex gap-5 items-center">
-                      {x?.is_group == 0 ? (
+                      {x?.is_group == 1 ? (
                         <div className="flex">
                           <Avatar>
                             <svg
@@ -117,12 +116,19 @@ export default function InboxPage() {
                         <h5>
                           <b className="text-[#2F80ED]">{x?.name}</b>
                         </h5>
+                        {x?.is_group == 1 ?
+                        <>
                         <p className="mb-0 text-[#333] font-semibold">
-                          cameron philips :
+                          {x?.recent_inbox?.sender} :
                         </p>
                         <p className="mb-0 text-[#4F4F4F] text-sm">
-                          please check this out
+                          {x?.recent_inbox?.text}
                         </p>
+                        </>
+                         : <p className="mb-0 text-[#4F4F4F] text-sm">
+                          {x?.recent_inbox}
+                        </p>
+                         }
                       </div>
                     </div>
                     <div className="flex flex-col items-end justify-end align-top">

@@ -36,7 +36,16 @@ export default function TaskPage() {
   const [listTask, setlistTask] = useState([]);
   
   // const { data, error } = useSWR(fetch('https://nirwanalines.000webhostapp.com/api/tasks').then((res) => res.json()));
-  
+  const task = async () => {
+      var data = await getTask();
+      if (!data) {
+        setIsLoading(isLoading)
+      } else {
+        setlistTask(data)
+        setIsLoading(!isLoading)
+      }
+      // console.log(data)
+    };
   
   useEffect(() => {
     // if (error) {
@@ -48,16 +57,7 @@ export default function TaskPage() {
     //   setlistTask(data)
     //   setIsLoading(!isLoading)
     // }
-    const task = async () => {
-      var data = await getTask();
-      if (!data) {
-        setIsLoading(isLoading)
-      } else {
-        setlistTask(data)
-        setIsLoading(!isLoading)
-      }
-      // console.log(data)
-    };
+    
     task();
   }, []);
   const handleClick = (i: number) => {

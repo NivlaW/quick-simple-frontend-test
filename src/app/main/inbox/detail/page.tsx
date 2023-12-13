@@ -84,12 +84,12 @@ export default function DetailInboxPage() {
           {listDInbox.map((x:any, i) => {
             return (
               <>
-                {x == 1 || x == 3 ? (
+                {x?.sender == 0 ? (
                   <>
                     <div className="py-2 flex flex-col justify-end items-end align-middle">
                       <div className="max-w-sm ">
                         <p className="text-right text-[#9B51E0] font-semibold">
-                          {x.sender ? x.sender : !x.sender ? `You` : `You`}
+                          You
                         </p>
                         <div className="flex flex-col p-3 rounded-lg bg-[#EEDCFF] text-left">
                           <p className="text-sm whitespace-pre-line">
@@ -98,9 +98,6 @@ export default function DetailInboxPage() {
                           <p className="mt-1 text-sm">{x && moment(x?.send_at).format("H:mm")}</p>
                         </div>
                       </div>
-                    </div>
-                    <div className="p-5 pb-0">
-                      <Divider className="text-sm">Today June 09,2021</Divider>
                     </div>
                   </>
                 ) : x.is_read == 0 ? (
