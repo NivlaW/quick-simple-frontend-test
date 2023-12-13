@@ -20,8 +20,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { SetStateAction, Suspense, useEffect, useState } from "react";
 import moment from "moment";
- 
-
 
 export default function TaskPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,20 +28,19 @@ export default function TaskPage() {
   const [OpenValue, setOpenValue] = useState(1);
   const [isEdit, setIsEdit] = useState(false);
   const [listTask, setlistTask] = useState([]);
-  
+
   const task = async () => {
-      var data = await getTask();
-      if (!data) {
-        setIsLoading(isLoading)
-      } else {
-        setlistTask(data)
-        setIsLoading(!isLoading)
-      }
-      // console.log(data)
-    };
-  
+    var data = await getTask();
+    if (!data) {
+      setIsLoading(isLoading);
+    } else {
+      setlistTask(data);
+      setIsLoading(!isLoading);
+    }
+    // console.log(data)
+  };
+
   useEffect(() => {
-    
     task();
   }, []);
   const handleClick = (i: number) => {
