@@ -20,12 +20,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { SetStateAction, Suspense, useEffect, useState } from "react";
 import moment from "moment";
-import useSWR from "swr";
-// import fetch from 'unfetch'
  
-// const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-// const fetcher = 'https://nirwanalines.000webhostapp.com' => fetch(...args).then((res) => res.json())
 
 export default function TaskPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +31,6 @@ export default function TaskPage() {
   const [isEdit, setIsEdit] = useState(false);
   const [listTask, setlistTask] = useState([]);
   
-  // const { data, error } = useSWR(fetch('https://nirwanalines.000webhostapp.com/api/tasks').then((res) => res.json()));
   const task = async () => {
       var data = await getTask();
       if (!data) {
@@ -48,15 +43,6 @@ export default function TaskPage() {
     };
   
   useEffect(() => {
-    // if (error) {
-    //   setIsEror(!isEror)
-    // };
-    // if (!data) {
-    //   setIsLoading(isLoading)
-    // } else {
-    //   setlistTask(data)
-    //   setIsLoading(!isLoading)
-    // }
     
     task();
   }, []);
