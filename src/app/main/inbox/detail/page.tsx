@@ -80,8 +80,6 @@ export default function DetailInboxPage() {
       <div className="flex flex-col-reverse overflow-y-scroll h-full p-3">
         <div className="flex flex-col ">
           {listDInbox.map((x: any, i) => {
-            console.log(partisip[0]);
-            // console.log(partisip[1]);
             return (
               <>
                 {x?.sender == 0 ? (
