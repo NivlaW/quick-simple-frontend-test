@@ -17,21 +17,20 @@ export default function DetailInboxPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isRead, setIsRead] = useState(5);
   const router = useRouter();
-  const [name, setName] = useState('');
-  const [partisip, setPartisip] = useState('');
-  const [listDInbox, setlistDInbox] = useState([])
+  const [name, setName] = useState("");
+  const [partisip, setPartisip] = useState("");
+  const [listDInbox, setlistDInbox] = useState([]);
 
-  
   useEffect(() => {
     const dinbox = async () => {
       var data = await getDetailInbox();
       if (!data) {
-        setIsLoading(isLoading)
+        setIsLoading(isLoading);
       } else {
-        setlistDInbox(data?.inboxes)
-        setName(data?.name)
-        setPartisip(data?.participants.length)
-        setIsLoading(!isLoading)
+        setlistDInbox(data?.inboxes);
+        setName(data?.name);
+        setPartisip(data?.participants.length);
+        setIsLoading(!isLoading);
       }
     };
     dinbox();
@@ -80,7 +79,7 @@ export default function DetailInboxPage() {
       </div>
       <div className="flex flex-col-reverse overflow-y-scroll h-full p-3">
         <div className="flex flex-col ">
-          {listDInbox.map((x:any, i) => {
+          {listDInbox.map((x: any, i) => {
             return (
               <>
                 {x?.sender == 0 ? (
@@ -94,7 +93,9 @@ export default function DetailInboxPage() {
                           <p className="text-sm whitespace-pre-line">
                             {x.text}
                           </p>
-                          <p className="mt-1 text-sm">{x && moment(x?.send_at).format("H:mm")}</p>
+                          <p className="mt-1 text-sm">
+                            {x && moment(x?.send_at).format("H:mm")}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -115,13 +116,15 @@ export default function DetailInboxPage() {
                     <div className="py-2 flex flex-col justify-center items-start align-middle">
                       <div className="max-w-sm ">
                         <p className="text-left text-[#43B78D] font-semibold">
-                           {x.sender}
+                          {x.sender}
                         </p>
                         <div className="flex flex-col p-3 rounded-lg bg-[#D2F2EA] text-left">
                           <p className="text-sm whitespace-pre-line">
                             {x.text}
                           </p>
-                          <p className="mt-1 text-sm">{x && moment(x?.send_at).format("H:mm")}</p>
+                          <p className="mt-1 text-sm">
+                            {x && moment(x?.send_at).format("H:mm")}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -134,8 +137,12 @@ export default function DetailInboxPage() {
                           {x.sender}
                         </p>
                         <div className="flex flex-col p-3 rounded-lg bg-[#FCEED3] text-left">
-                          <p className="text-sm whitespace-pre-line">{x.text}</p>
-                          <p className="mt-1 text-sm">{x && moment(x?.send_at).format("H:mm")}</p>
+                          <p className="text-sm whitespace-pre-line">
+                            {x.text}
+                          </p>
+                          <p className="mt-1 text-sm">
+                            {x && moment(x?.send_at).format("H:mm")}
+                          </p>
                         </div>
                       </div>
                     </div>

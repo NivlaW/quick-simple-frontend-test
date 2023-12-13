@@ -14,18 +14,18 @@ import { useEffect, useState } from "react";
 
 export default function InboxPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [listInbox, setlistInbox] = useState([])
+  const [listInbox, setlistInbox] = useState([]);
 
   const inbox = async () => {
-      var data = await getInbox();
-      if (!data) {
-        setIsLoading(isLoading)
-      } else {
-        setlistInbox(data)
-        setIsLoading(!isLoading)
-      }
-      // console.log(data)
-    };
+    var data = await getInbox();
+    if (!data) {
+      setIsLoading(isLoading);
+    } else {
+      setlistInbox(data);
+      setIsLoading(!isLoading);
+    }
+    // console.log(data)
+  };
   useEffect(() => {
     inbox();
   }, []);
@@ -116,19 +116,20 @@ export default function InboxPage() {
                         <h5>
                           <b className="text-[#2F80ED]">{x?.name}</b>
                         </h5>
-                        {x?.is_group == 1 ?
-                        <>
-                        <p className="mb-0 text-[#333] font-semibold">
-                          {x?.recent_inbox?.sender} :
-                        </p>
-                        <p className="mb-0 text-[#4F4F4F] text-sm">
-                          {x?.recent_inbox?.text}
-                        </p>
-                        </>
-                         : <p className="mb-0 text-[#4F4F4F] text-sm">
-                          {x?.recent_inbox}
-                        </p>
-                         }
+                        {x?.is_group == 1 ? (
+                          <>
+                            <p className="mb-0 text-[#333] font-semibold">
+                              {x?.recent_inbox?.sender} :
+                            </p>
+                            <p className="mb-0 text-[#4F4F4F] text-sm">
+                              {x?.recent_inbox?.text}
+                            </p>
+                          </>
+                        ) : (
+                          <p className="mb-0 text-[#4F4F4F] text-sm">
+                            {x?.recent_inbox}
+                          </p>
+                        )}
                       </div>
                     </div>
                     <div className="flex flex-col items-end justify-end align-top">
